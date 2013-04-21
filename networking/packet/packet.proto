@@ -1,0 +1,15 @@
+package packet;
+
+// Exactly one optional field other than ensureArrival must be set.
+message Packet {
+	// If set and non-zero, this Packet will be re-sent until an
+	// ArrivalNotice is recieved by the sender of this packet with
+	// the same ID. To avoid infinite loops, ArrivalNotice packets
+	// should not have this field set.
+	optional uint64 ensureArrival = 1;
+
+	message ArrivalNotice {
+		required uint64 packetID = 1;
+	}
+	optional ArrivalNotice arrivalNotice = 2;
+}
