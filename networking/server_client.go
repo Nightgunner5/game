@@ -53,9 +53,23 @@ func (sc *ServerClient) dispatch() {
 			}, false)
 		} else if an := p.GetArrivalNotice().GetPacketID(); an != 0 {
 			sc.server.arrivalNotice(sc.addr, an)
-			return
+			continue
 		}
 
+		if t := p.GetTestingPacket(); t != nil {
+			switch t.GetType() {
+			case packet.Packet_TestingPacket_Push:
+			case packet.Packet_TestingPacket_Request:
+				sc.Send(&packet.Packet{
+					TestingPacket: &packet.Packet_TestingPacket{
+						Type: packet.Packet_TestingPacket_Response.Enum(),
+					},
+				}, false)
+
+			case packet.Packet_TestingPacket_Response:
+			}
+			continue
+		}
 		log.Println(sc.addr, p)
 	}
 }

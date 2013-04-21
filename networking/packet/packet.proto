@@ -12,4 +12,15 @@ message Packet {
 		required uint64 packetID = 1;
 	}
 	optional ArrivalNotice arrivalNotice = 2;
+
+	message TestingPacket {
+		enum Type {
+			Request  = 1;
+			Response = 2;
+			Push     = 3;
+		};
+
+		required Type type = 1;
+	}
+	optional TestingPacket testingPacket = 3;
 }

@@ -13,9 +13,49 @@ var _ = proto.Marshal
 var _ = &json.SyntaxError{}
 var _ = math.Inf
 
+type Packet_TestingPacket_Type int32
+
+const (
+	Packet_TestingPacket_Request  Packet_TestingPacket_Type = 1
+	Packet_TestingPacket_Response Packet_TestingPacket_Type = 2
+	Packet_TestingPacket_Push     Packet_TestingPacket_Type = 3
+)
+
+var Packet_TestingPacket_Type_name = map[int32]string{
+	1: "Request",
+	2: "Response",
+	3: "Push",
+}
+var Packet_TestingPacket_Type_value = map[string]int32{
+	"Request":  1,
+	"Response": 2,
+	"Push":     3,
+}
+
+func (x Packet_TestingPacket_Type) Enum() *Packet_TestingPacket_Type {
+	p := new(Packet_TestingPacket_Type)
+	*p = x
+	return p
+}
+func (x Packet_TestingPacket_Type) String() string {
+	return proto.EnumName(Packet_TestingPacket_Type_name, int32(x))
+}
+func (x Packet_TestingPacket_Type) MarshalJSON() ([]byte, error) {
+	return json.Marshal(x.String())
+}
+func (x *Packet_TestingPacket_Type) UnmarshalJSON(data []byte) error {
+	value, err := proto.UnmarshalJSONEnum(Packet_TestingPacket_Type_value, data, "Packet_TestingPacket_Type")
+	if err != nil {
+		return err
+	}
+	*x = Packet_TestingPacket_Type(value)
+	return nil
+}
+
 type Packet struct {
 	EnsureArrival    *uint64               `protobuf:"varint,1,opt,name=ensureArrival" json:"ensureArrival,omitempty"`
 	ArrivalNotice    *Packet_ArrivalNotice `protobuf:"bytes,2,opt,name=arrivalNotice" json:"arrivalNotice,omitempty"`
+	TestingPacket    *Packet_TestingPacket `protobuf:"bytes,3,opt,name=testingPacket" json:"testingPacket,omitempty"`
 	XXX_unrecognized []byte                `json:"-"`
 }
 
@@ -37,6 +77,13 @@ func (m *Packet) GetArrivalNotice() *Packet_ArrivalNotice {
 	return nil
 }
 
+func (m *Packet) GetTestingPacket() *Packet_TestingPacket {
+	if m != nil {
+		return m.TestingPacket
+	}
+	return nil
+}
+
 type Packet_ArrivalNotice struct {
 	PacketID         *uint64 `protobuf:"varint,1,req,name=packetID" json:"packetID,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
@@ -53,5 +100,22 @@ func (m *Packet_ArrivalNotice) GetPacketID() uint64 {
 	return 0
 }
 
+type Packet_TestingPacket struct {
+	Type             *Packet_TestingPacket_Type `protobuf:"varint,1,req,name=type,enum=packet.Packet_TestingPacket_Type" json:"type,omitempty"`
+	XXX_unrecognized []byte                     `json:"-"`
+}
+
+func (m *Packet_TestingPacket) Reset()         { *m = Packet_TestingPacket{} }
+func (m *Packet_TestingPacket) String() string { return proto.CompactTextString(m) }
+func (*Packet_TestingPacket) ProtoMessage()    {}
+
+func (m *Packet_TestingPacket) GetType() Packet_TestingPacket_Type {
+	if m != nil && m.Type != nil {
+		return *m.Type
+	}
+	return 0
+}
+
 func init() {
+	proto.RegisterEnum("packet.Packet_TestingPacket_Type", Packet_TestingPacket_Type_name, Packet_TestingPacket_Type_value)
 }

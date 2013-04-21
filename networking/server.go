@@ -128,7 +128,7 @@ func (s *Server) Recieve() error {
 		var buf [MaxPacketSize]byte
 		n, addr, err := s.ln.ReadFrom(buf[:])
 		if err != nil {
-			log.Println(addr, err)
+			//log.Println(addr, err)
 
 			if e, ok := err.(*net.OpError); ok && e.Temporary() {
 				continue
