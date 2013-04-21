@@ -56,6 +56,8 @@ func (s *Server) ensure() {
 		}
 		s.ensuredLock.Unlock()
 	}
+
+	panic("unreachable")
 }
 
 // TODO: Documentation
@@ -113,6 +115,8 @@ func (s *Server) Prune(maxIdle time.Duration) {
 		}
 		s.lock.Unlock()
 	}
+
+	panic("unreachable")
 }
 
 // Recieve accepts and dispatches packets sent to the server's listener. If this
@@ -144,4 +148,6 @@ func (s *Server) Recieve() error {
 		}
 		s.lock.Unlock()
 	}
+
+	panic("unreachable")
 }

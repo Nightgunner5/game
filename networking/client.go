@@ -59,6 +59,8 @@ func (c *Client) ensure() {
 		}
 		c.lock.Unlock()
 	}
+
+	panic("unreachable")
 }
 
 // TODO: Documentation
@@ -93,6 +95,8 @@ func (c *Client) Read() (*packet.Packet, error) {
 
 		return parsed, nil
 	}
+
+	panic("unreachable")
 }
 
 // TODO: Documentation
