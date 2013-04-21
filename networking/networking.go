@@ -1,8 +1,7 @@
+// Package networking provides asynchronous client-server communication.
 package networking
 
-import (
-	"time"
-)
+import "time"
 
 const (
 	// Packets over this many bytes will be truncated.
