@@ -63,6 +63,22 @@ func BenchmarkLenSq(b *testing.B) {
 	}
 }
 
+func BenchmarkNorm(b *testing.B) {
+	v := Vec{1, 2, 3}
+
+	for i := 0; i < b.N; i++ {
+		_ = v.Norm()
+	}
+}
+
+func BenchmarkNormInPlace(b *testing.B) {
+	v := Vec{1, 2, 3}
+
+	for i := 0; i < b.N; i++ {
+		v.NormInPlace()
+	}
+}
+
 func BenchmarkSub(b *testing.B) {
 	v1 := Vec{1, 2, 3}
 	v2 := Vec{4, 5, 6}

@@ -104,3 +104,30 @@ func (v *Vec) DistSq(o *Vec) float64 {
 
 	return result
 }
+
+// Returns a normalized copy of the vector. That is, a vector with the same
+// direction but with a magnitude of 1. Behavior is undefined on vectors with
+// a magnitude of 0. NormInPlace is a cheaper alternative if the original vector
+// is no longer needed.
+func (v *Vec) Norm() *Vec {
+	var result Vec
+
+	m := v.Len()
+	for i, f := range *v {
+		result[i] = f / m
+	}
+
+	return &result
+}
+
+// Normalizes the vector in place and returns it for convenience. That is, it
+// changes v to have a magnitude of 1 while keeping the direction constant.
+// Behavior is undefined on vectors with a magnitude of 0.
+func (v *Vec) NormInPlace() *Vec {
+	m := v.Len()
+	for i := range *v {
+		(*v)[i] /= m
+	}
+
+	return v
+}
